@@ -24,11 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     final dio = Dio();
-    const localhostPath = '127.0.0.1:3000';
-
-    // final ip = Platform.isIOS == true ? path : '';
 
     return DefaultLayout(
         child: SingleChildScrollView(
@@ -73,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Codec<String, String> stringToBase64 = utf8.fuse(base64);
                           String token = stringToBase64.encode(rawString);
 
-                          final result = await dio.post('http://$localhostPath/auth/login',
+                          final result = await dio.post('$address/auth/login',
                               options: Options(
                                 headers: {
                                   'authorization': 'Basic $token'
@@ -103,15 +99,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     TextButton(
                         onPressed: () async {
-                          const refreshToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RAY29kZWZhY3RvcnkuYWkiLCJzdWIiOiJmNTViMzJkMi00ZDY4LTRjMWUtYTNjYS1kYTlkN2QwZDkyZTUiLCJ0eXBlIjoicmVmcmVzaCIsImlhdCI6MTY5MjIzODkwNSwiZXhwIjoxNjkyMzI1MzA1fQ.OKZe_nzk1ceoEzImmphn_V1t6KQZvTUkUBXA3fJHh8s';
-                          final result = await dio.post('http://$localhostPath/auth/token',
-                              options: Options(
-                                headers: {
-                                  'authorization': 'Bearer $refreshToken'
-                                },
-                              )
-                          );
-                          print(result.data);
                         },
                         style: TextButton.styleFrom(
                             foregroundColor: Colors.black,
