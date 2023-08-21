@@ -1,40 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_edu_app/common/const/colors.dart';
+import 'package:flutter_edu_app/restaurant/model/restaurant_card_model.dart';
+import 'package:flutter_edu_app/restaurant/model/restaurant_model.dart';
 
 class RestaurantCard extends StatelessWidget {
-  final Widget image;
-  final String name;
-  final List<String> tags;
-  final int ratingCount;
-  final int deliveryTime;
-  final int deliveryFee;
-  final double rating;
+  final RestaurantModel restaurantModel;
 
   const RestaurantCard({
-    required this.image,
-    required this.name,
-    required this.tags,
-    required this.ratingCount,
-    required this.deliveryTime,
-    required this.deliveryFee,
-    required this.rating,
+    required this.restaurantModel,
     Key? key
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final RestaurantCardModel restaurantCardModel = RestaurantCardModel.fromJson(restaurantModel: restaurantModel);
     return Column(
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(12.0),
-          child: image,
+          child: restaurantCardModel.image,
         ),
         const SizedBox(height: 16.0,),
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-                name,
+              restaurantCardModel.name,
               style: TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.w500
@@ -42,7 +33,7 @@ class RestaurantCard extends StatelessWidget {
             ),
             const SizedBox(height: 8.0,),
             Text(
-              tags.join(' · '),
+              restaurantCardModel.tags.join(' · '),
               style: TextStyle(
                 color: BODY_TEXT_COLOR,
                 fontSize: 14.0
@@ -53,22 +44,22 @@ class RestaurantCard extends StatelessWidget {
               children: [
                 _IconText(
                   icon: Icons.star,
-                  label: rating.toString(),
+                  label: restaurantCardModel.ratings.toString(),
                 ),
                 renderDot(),
                 _IconText(
                   icon: Icons.receipt,
-                  label: ratingCount.toString(),
+                  label: restaurantCardModel.ratingsCount.toString(),
                 ),
                 renderDot(),
                 _IconText(
                   icon: Icons.timelapse_outlined,
-                  label: '$deliveryTime 분',
+                  label: '${restaurantCardModel.deliveryTime} 분',
                 ),
                 renderDot(),
                 _IconText(
                   icon: Icons.monetization_on,
-                  label: deliveryFee == 0 ? '무료' : deliveryFee.toString(),
+                  label: restaurantCardModel.deliveryFee == 0 ? '무료' : restaurantCardModel.deliveryFee.toString(),
                 ),
               ],
             ),
@@ -118,7 +109,7 @@ class _IconText extends StatelessWidget {
             fontSize: 12.0,
             fontWeight: FontWeight.w500,
           ),
-        )
+        ),
       ],
     );
   }
