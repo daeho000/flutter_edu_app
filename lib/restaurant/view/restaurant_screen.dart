@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_edu_app/common/const/data.dart';
 import 'package:flutter_edu_app/restaurant/component/restaurant_card.dart';
 import 'package:flutter_edu_app/restaurant/model/restaurant_model.dart';
+import 'package:flutter_edu_app/restaurant/view/restaurant_detail_screen.dart';
 
 class RestaurantScreen extends StatelessWidget {
   const RestaurantScreen({Key? key}) : super(key: key);
@@ -18,7 +19,6 @@ class RestaurantScreen extends StatelessWidget {
           }
         )
     );
-    await storage.write(key: ACCESS_TOKEN_KEY, value: result.data['accessToken']);
     return result.data['data'];
   }
 
@@ -32,7 +32,9 @@ class RestaurantScreen extends StatelessWidget {
             future: paginateRestaurant(),
             builder: (context, AsyncSnapshot<List> snapshot) {
               if(!snapshot.hasData) {
-                return Container();
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
               }
 
               return ListView.separated(
@@ -41,7 +43,19 @@ class RestaurantScreen extends StatelessWidget {
                     final item = snapshot.data![index];
                     final pItem = RestaurantModel.fromJson(json: item,);
 
-                    return RestaurantCard(restaurantModel: pItem);
+                    return GestureDetector(
+                      onTap: () {
+                        pItem.isDetail = true;
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => RestaurantDetailScreen(
+                              restaurantModel: pItem,
+                            ),
+                          ),
+                        );
+                      },
+                      child: RestaurantCard(restaurantModel: pItem)
+                    );
                   },
                   separatorBuilder: (_, index) {
                     return const SizedBox(height: 16.0);

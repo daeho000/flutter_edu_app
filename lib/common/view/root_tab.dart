@@ -40,7 +40,7 @@ class _RootTabState extends State<RootTab> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return DefaultLayout(
-      title: 'test TEst',
+      title: 'Main',
       child: TabBarView(
         physics: NeverScrollableScrollPhysics(),
         controller: tabController,

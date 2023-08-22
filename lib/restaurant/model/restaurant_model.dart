@@ -16,6 +16,7 @@ class RestaurantModel {
   final int ratingsCount;
   final int deliveryTime;
   final int deliveryFee;
+  late bool isDetail;
 
   RestaurantModel({
     required this.id,
@@ -27,10 +28,12 @@ class RestaurantModel {
     required this.ratingsCount,
     required this.deliveryTime,
     required this.deliveryFee,
+    this.isDetail = false,
   });
 
   factory RestaurantModel.fromJson({
     required Map<String, dynamic> json,
+    bool isDetail = false,
   }) {
     return RestaurantModel(
       id : json['id'],
@@ -42,6 +45,7 @@ class RestaurantModel {
       ratingsCount : json['ratingsCount'],
       deliveryTime : json['deliveryTime'],
       deliveryFee : json['deliveryFee'],
+      isDetail: isDetail,
     );
   }
 }

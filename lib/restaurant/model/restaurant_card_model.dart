@@ -9,6 +9,8 @@ class RestaurantCardModel {
   final int deliveryTime;
   final int deliveryFee;
   final double ratings;
+  final bool isDetail;
+  late String? detail;
 
   RestaurantCardModel({
     required this.image,
@@ -18,10 +20,13 @@ class RestaurantCardModel {
     required this.deliveryTime,
     required this.deliveryFee,
     required this.ratings,
+    required this.isDetail,
+    this.detail,
   });
 
   factory RestaurantCardModel.fromJson({
     required RestaurantModel restaurantModel,
+    String? detail,
   }) {
     return RestaurantCardModel(
       image : Image.network(
@@ -34,6 +39,8 @@ class RestaurantCardModel {
       deliveryTime : restaurantModel.deliveryTime,
       deliveryFee : restaurantModel.deliveryFee,
       ratings : restaurantModel.ratings,
+      isDetail : restaurantModel.isDetail,
+      detail: detail,
     );
   }
 }

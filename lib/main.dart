@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_edu_app/common/component/custom_text_form_field.dart';
 import 'package:flutter_edu_app/common/view/splash_screen.dart';
-import 'package:flutter_edu_app/user/view/login_screen.dart';
 
 void main() {
   runApp(
