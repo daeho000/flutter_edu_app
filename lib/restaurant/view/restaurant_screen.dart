@@ -14,14 +14,13 @@ class RestaurantScreen extends StatelessWidget {
   Future<CursorPagination<RestaurantModel>> paginateRestaurant() async {
     final dio = Dio();
 
-
     dio.interceptors.add(
       CustomInterceptor(
         secureStorage: storage,
       ),
     );
 
-    final repository =  RestaurantRepository(dio, baseUrl: '${address}/restaurant');
+    final repository =  RestaurantRepository(dio, baseUrl: '$address/restaurant');
 
     return repository.paginate();
   }
