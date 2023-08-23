@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,6 @@ import 'package:flutter_edu_app/common/const/colors.dart';
 import 'package:flutter_edu_app/common/const/data.dart';
 import 'package:flutter_edu_app/common/layout/default_layout.dart';
 import 'package:flutter_edu_app/common/view/root_tab.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
