@@ -5,23 +5,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_edu_app/common/component/custom_text_form_field.dart';
 import 'package:flutter_edu_app/common/const/colors.dart';
 import 'package:flutter_edu_app/common/const/data.dart';
+import 'package:flutter_edu_app/common/dio/dio.dart';
 import 'package:flutter_edu_app/common/layout/default_layout.dart';
+import 'package:flutter_edu_app/common/secure_storage/secure_storage.dart';
 import 'package:flutter_edu_app/common/view/root_tab.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   String userName = '';
   String userPassword = '';
 
   @override
   Widget build(BuildContext context) {
-    final dio = Dio();
+    final dio = ref.read(dioProvider);
 
     return DefaultLayout(
         child: SingleChildScrollView(
@@ -75,6 +78,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       final refreshToken = result.data['refreshToken'];
                       final accessToken = result.data['accessToken'];
+
+                      final storage = ref.read(secureStorageProvider);
 
                       await storage.write(
                           key: REFRESH_TOKEN_KEY, value: refreshToken);

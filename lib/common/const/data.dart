@@ -10,5 +10,3 @@ const emulatorIp = 'http://10.0.2.2:3000';
 const simulatorIp = 'http://localhost:3000';
 
 final address = Platform.isIOS ? simulatorIp : emulatorIp;
-
-final storage = FlutterSecureStorage();
